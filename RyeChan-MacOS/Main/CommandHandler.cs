@@ -68,7 +68,7 @@ namespace RyeChan_MacOS
             {
                 var result = await _service.ExecuteAsync(context, argPos);
                 String writer = s.Author.ToString();
-                //if (msg.Content.Contains("confess")) writer = "Anon";
+                if (msg.Content.Contains("confess")) writer = "Anon";
                 if (log) Console.WriteLine(writer + " attempted " + s.ToString());
 
                 if (!result.IsSuccess && result.Error != CommandError.UnknownCommand)
@@ -245,7 +245,7 @@ namespace RyeChan_MacOS
             }
             #endregion
             String created = Month + " " + DTO.Day + ", " + DTO.Year + " at " + hour + ":" + DTO.Minute.ToString("00") + ":" + DTO.Second.ToString("00") + " " + M + "  " + est.DisplayName.Substring(0, 11) + "[EST]";
-            String avatarURL = u.GetAvatarUrl(ImageFormat.Png, 1024);
+            String avatarURL = u.GetAvatarUrl(ImageFormat.Gif, 1024);
             if (avatarURL == "" || avatarURL == null)
             {
                 avatarURL = $"{DiscordConfig.CDNUrl}embed/avatars/{u.DiscriminatorValue % 5}.png";

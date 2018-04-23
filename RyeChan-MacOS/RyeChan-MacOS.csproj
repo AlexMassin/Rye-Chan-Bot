@@ -9,4 +9,13 @@
     <PackageReference Include="Discord.Net" Version="1.0.2" />
     <PackageReference Include="Discord.Net.Core" Version="1.0.2" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Test.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Utility Commands\" />
+    <Folder Include="Fun Commands\" />
+    <Folder Include="[LIVE] Protocols\" />
+    <Folder Include="Main\" />
+  </ItemGroup>
 </Project>
