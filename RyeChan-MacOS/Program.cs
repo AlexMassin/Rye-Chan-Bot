@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Threading.Tasks;
 using Discord;
 using Discord.WebSocket;
@@ -18,7 +19,10 @@ namespace RyeChan_MacOS
         {
             _client = new DiscordSocketClient();
 
-            await _client.LoginAsync(TokenType.Bot, "PRIVATE");
+            using (System.IO.StreamReader sr = File.OpenText(@"Token.key"))
+            {
+                await _client.LoginAsync(TokenType.Bot, sr.ReadLine());
+            }
 
             await _client.StartAsync();
 
