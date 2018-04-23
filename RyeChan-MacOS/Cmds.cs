@@ -1292,37 +1292,43 @@ namespace RyeChanMacOS
                 Description = username //soft hyphen to induce a newline
             };
 
-            builder.AddField(x => {
+            builder.AddField(x =>
+            {
                 x.Name = "Nickname: ";
                 x.Value = nickname;
                 x.IsInline = false;
             });
 
-            builder.AddField(x => {
+            builder.AddField(x =>
+            {
                 x.Name = "Created: ";
                 x.Value = created;
                 x.IsInline = false;
             });
 
-            builder.AddField(x => {
+            builder.AddField(x =>
+            {
                 x.Name = "Joined: ";
                 x.Value = joined;
                 x.IsInline = false;
             });
 
-            builder.AddField(x => {
+            builder.AddField(x =>
+            {
                 x.Name = "Discriminator: ";
                 x.Value = "#" + discriminator;
                 x.IsInline = false;
             });
 
-            builder.AddField(x => {
+            builder.AddField(x =>
+            {
                 x.Name = "Playing: ";
                 x.Value = playing;
                 x.IsInline = false;
             });
 
-            builder.AddField(x => {
+            builder.AddField(x =>
+            {
                 x.Name = "Avatar: ";
                 x.Value = "[[Link]](" + avatarURL + ")";
                 x.IsInline = false;
@@ -1497,37 +1503,43 @@ namespace RyeChanMacOS
                         Description = username //soft hyphen to induce a newline
                     };
 
-                    builder.AddField(x => {
+                    builder.AddField(x =>
+                    {
                         x.Name = "Nickname: ";
                         x.Value = nickname;
                         x.IsInline = false;
                     });
 
-                    builder.AddField(x => {
+                    builder.AddField(x =>
+                    {
                         x.Name = "Created: ";
                         x.Value = created;
                         x.IsInline = false;
                     });
 
-                    builder.AddField(x => {
+                    builder.AddField(x =>
+                    {
                         x.Name = "Joined: ";
                         x.Value = joined;
                         x.IsInline = false;
                     });
 
-                    builder.AddField(x => {
+                    builder.AddField(x =>
+                    {
                         x.Name = "Discriminator: ";
                         x.Value = "#" + discriminator;
                         x.IsInline = false;
                     });
 
-                    builder.AddField(x => {
+                    builder.AddField(x =>
+                    {
                         x.Name = "Playing: ";
                         x.Value = playing;
                         x.IsInline = false;
                     });
 
-                    builder.AddField(x => {
+                    builder.AddField(x =>
+                    {
                         x.Name = "Avatar: ";
                         x.Value = "[[Link]](" + avatarURL + ")";
                         x.IsInline = false;
@@ -1574,6 +1586,24 @@ namespace RyeChanMacOS
                     await Context.Channel.SendMessageAsync("Protocol N is now disabled.");
                 }
             }
+        }
+        #endregion
+        #region
+        [Command("profess")]
+        [RequireUserPermission(ChannelPermission.ManageMessages)]
+
+        public async Task profess([Remainder] string s)
+        {
+            var messages = await Context.Channel.GetMessagesAsync(1).Flatten();
+            await Context.Channel.DeleteMessagesAsync(messages);
+
+            await Context.Channel.SendMessageAsync("**__Confession #" + CommandHandler.confessionCount + "__**\n" + s);
+            CommandHandler.confessionCount++;
+            using (StreamWriter sw = new StreamWriter("ConfessionCounter.key", false))
+            {
+                sw.WriteLine(CommandHandler.confessionCount);
+            }
+
         }
         #endregion
     }

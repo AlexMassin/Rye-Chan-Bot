@@ -21,6 +21,7 @@ namespace RyeChan_MacOS
         #endregion
         public SocketUser recentlyBanned;
         public static SocketUser Glex;
+        public static int confessionCount;
 
         private DiscordSocketClient _client;
 
@@ -42,7 +43,10 @@ namespace RyeChan_MacOS
 
             _client.UserBanned += bannedUser;
 
-
+            using (System.IO.StreamReader sr = File.OpenText(@"ConfessionCounter.key"))
+            {
+                confessionCount = Convert.ToInt32(sr.ReadLine());
+            }
         }
 
         bool log = true;
@@ -64,7 +68,7 @@ namespace RyeChan_MacOS
             {
                 var result = await _service.ExecuteAsync(context, argPos);
                 String writer = s.Author.ToString();
-                if (msg.Content.Contains("confess")) writer = "Anon";
+                //if (msg.Content.Contains("confess")) writer = "Anon";
                 if (log) Console.WriteLine(writer + " attempted " + s.ToString());
 
                 if (!result.IsSuccess && result.Error != CommandError.UnknownCommand)
