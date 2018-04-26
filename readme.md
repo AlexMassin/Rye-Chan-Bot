@@ -97,7 +97,9 @@ Returns the response latency of the bot.
 
 *  `!playing {lol}`
 Returns a list of users playing the inquired game. Some shortcuts are available.  
-Shortcuts:  
+If a shortcut interferes with another game's name, you can force override like this:  
+	`!playing wow override name`  
+	Shortcuts:  
 	```
 	League of Legends: "lol", "league", "leg"
 	Warframe: "wf"
@@ -112,8 +114,6 @@ Shortcuts:
 	Grand Theft Auto V: "gta v", "gta 5", "gtav", "gta5"
 	Doko Doki Literature Club: "ddlc"
 	```  
-If a shortcut interferes with another game's name, you can force override like this:
-	`!playing wow override name`
 
 *  `!poll help`
 Displays help for polls
@@ -139,6 +139,7 @@ Returns user data including:
 	Created: Jan 1, 2012 at 2:15:07 PM (UTC-5:00)[EST]
 	Joined: Jan 2, 2012 at 6:21:24 PM (UTC-5:00)[EST]
 	Discriminator: #7732
+	Status: Do Not Disturb
 	Playing: League of Legends
 	Avatar: [Link] + Preview
 	```
