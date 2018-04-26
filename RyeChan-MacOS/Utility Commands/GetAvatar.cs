@@ -32,22 +32,15 @@ namespace RyeChanMacOS.UtilityCommands
                     {
                         name = u.Username;
                     }
-                    string link = u.GetAvatarUrl(ImageFormat.Gif, 1024);
-                    if (link == "" || link == null)
-                    {
-                        link = $"{DiscordConfig.CDNUrl}embed/avatars/{u.DiscriminatorValue % 5}.png";
-                    }
-                    await Context.Channel.SendMessageAsync(name + "'s avatar: " + Environment.NewLine + link);
-                    //return;
+                    await Context.Channel.SendMessageAsync(name + "'s avatar: " + Environment.NewLine + HelperFunctions.Avatar.getAvatar(u));
+                    //return; //comment out if returning all cases
                 }
             }
         }
         [Command("avatar")]
         public async Task getAvatarSelf()
         {
-            await Context.Channel.SendMessageAsync(Context.User.Username + "'s avatar: " + Environment.NewLine + Context.User.GetAvatarUrl(ImageFormat.Png, 1024));
-            return;
-
+            await Context.Channel.SendMessageAsync(Context.User.Username + "'s avatar: " + Environment.NewLine + HelperFunctions.Avatar.getAvatar(Context.User));
         }
         #endregion
     }

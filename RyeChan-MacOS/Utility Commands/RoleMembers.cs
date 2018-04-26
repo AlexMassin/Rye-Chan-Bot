@@ -28,31 +28,7 @@ namespace RyeChanMacOS.UtilityCommands
             foreach (var v in m)
             {
                 string buffer = "";
-                string status = "";
-                if (v.Status == UserStatus.Offline)
-                {
-                    status = " |  [OFFLINE]";
-                }
-                else if (v.Status == UserStatus.Idle)
-                {
-                    status = " |  [IDLE]";
-                }
-                else if (v.Status == UserStatus.AFK)
-                {
-                    status = " |  [AFK]";
-                }
-                else if (v.Status == UserStatus.DoNotDisturb)
-                {
-                    status = " |  [DO NOT DISTURB]";
-                }
-                else if (v.Status == UserStatus.Invisible)
-                {
-                    status = " |  [INVISIBLE]";
-                }
-                else
-                {
-                    status = " |  [ONLINE]";
-                }
+                string status = " |   [" + HelperFunctions.UserStatus.getStatus(v).ToUpper() + "]";
 
                 if (v.Nickname != "" || v.Nickname != null || v.Nickname != " " || v.Nickname != v.Username)
                 {

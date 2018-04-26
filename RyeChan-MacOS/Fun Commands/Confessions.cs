@@ -13,7 +13,7 @@ using System.Text.RegularExpressions;
 using System.Globalization;
 using RyeChan_MacOS;
 
-namespace RyeChanMacOS.UtilityCommands
+namespace RyeChanMacOS.FunCommands
 {
     public class Confessions : ModuleBase<SocketCommandContext>
     {
@@ -54,13 +54,12 @@ namespace RyeChanMacOS.UtilityCommands
         {
             var messages = await Context.Channel.GetMessagesAsync(1).Flatten();
             await Context.Channel.DeleteMessagesAsync(messages);
-
+            CommandHandler.confessionCount++;
             await Context.Channel.SendMessageAsync("**__Confession #" + CommandHandler.confessionCount + "__**\n" + s);
             using (StreamWriter sw = new StreamWriter("ConfessionCounter.key", false))
             {
-                sw.WriteLine(CommandHandler.confessionCount++);
+                sw.WriteLine(CommandHandler.confessionCount);
             }
-            CommandHandler.confessionCount++;
         }
         #endregion
     }

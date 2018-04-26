@@ -13,7 +13,7 @@ using System.Text.RegularExpressions;
 using System.Globalization;
 using RyeChan_MacOS;
 
-namespace RyeChanMacOS.UtilityCommands
+namespace RyeChanMacOS.FunCommands
 {
     public class RandomFacts : ModuleBase<SocketCommandContext>
     {
