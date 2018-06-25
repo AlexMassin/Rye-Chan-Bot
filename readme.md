@@ -40,8 +40,8 @@
 
 ## Current List of Commands
 
-There are 25 commands.  
-14 fun commands and 11 utility commands.  
+There are 33 commands.  
+15 fun commands and 18 utility commands.  
 Anything wrapped between `{` and `}` are parameters that are not required to use the command!  
 Anything wrapped between `[` and `]` are permissions required to use the command!
 
