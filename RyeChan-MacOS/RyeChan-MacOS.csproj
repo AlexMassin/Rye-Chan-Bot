@@ -11,6 +11,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Test.cs" />
+    <Compile Remove="Fun Commands\Morph Backup.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Utility Commands\" />
@@ -18,5 +19,8 @@
     <Folder Include="[LIVE] Protocols\" />
     <Folder Include="Main\" />
     <Folder Include="Helper Functions\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="temp.txt" />
   </ItemGroup>
 </Project>

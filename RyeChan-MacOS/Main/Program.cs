@@ -11,15 +11,15 @@ namespace RyeChan_MacOS
         static void Main(string[] args)
             => new Program().StartAsync().GetAwaiter().GetResult();
 
-        private DiscordSocketClient _client;
+        DiscordSocketClient _client;
 
-        private CommandHandler _handler;
+        CommandHandler _handler;
 
         public async Task StartAsync()
         {
             _client = new DiscordSocketClient();
 
-            using (System.IO.StreamReader sr = File.OpenText(@"Token.key"))
+            using (StreamReader sr = File.OpenText(@"Token.key"))
             {
                 await _client.LoginAsync(TokenType.Bot, sr.ReadLine());
             }

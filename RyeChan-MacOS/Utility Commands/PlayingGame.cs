@@ -84,6 +84,10 @@ namespace RyeChanMacOS.UtilityCommands
                 {
                     game = "Doki Doki Literature Club";
                 }
+                else if (game.ToLower() == "l4d2")
+                {
+                    game = "Left 4 Dead 2";
+                }
             }
             //Shortcuts end here
             #endregion

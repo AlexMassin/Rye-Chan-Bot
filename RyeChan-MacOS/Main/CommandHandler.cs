@@ -22,6 +22,7 @@ namespace RyeChan_MacOS
         public SocketUser recentlyBanned;
         public static SocketUser Glex;
         public static int confessionCount;
+        public static bool escFirstChar;
 
         private DiscordSocketClient _client;
 
@@ -43,7 +44,9 @@ namespace RyeChan_MacOS
 
             _client.UserBanned += bannedUser;
 
-            using (System.IO.StreamReader sr = File.OpenText(@"ConfessionCounter.key"))
+            _client.ChannelUpdated += channelUpdated;
+
+            using (StreamReader sr = File.OpenText(@"ConfessionCounter.key"))
             {
                 confessionCount = Convert.ToInt32(sr.ReadLine());
             }
@@ -55,8 +58,10 @@ namespace RyeChan_MacOS
         {
             var msg = s as SocketUserMessage;
             if (msg == null) return;
-
             var context = new SocketCommandContext(_client, msg);
+
+            if (msg.Content.Split(" ").Length > 1 && msg.Content.Split(" ")[1][0] == '\\') escFirstChar = true;
+            else escFirstChar = false;
 
             int argPos = 0;
             if (msg.Author.Username == "Glex" && msg.Author.Discriminator == "9999" && Glex == null)
@@ -73,14 +78,14 @@ namespace RyeChan_MacOS
 
                 if (!result.IsSuccess && result.Error != CommandError.UnknownCommand)
                 {
-                    if (log) Console.WriteLine("     attempt failed.");
+                    if (log) Console.WriteLine("\tattempt failed.");
                     await context.Channel.SendMessageAsync(result.ErrorReason);
                 }
             }
 
             #region Live response
             //Protocol N removed
-            if (msg.Content.ToLower().Contains("<@407041206984376320>") && !msg.Content.ToLower().StartsWith("!") && !msg.Author.IsBot)
+            if (msg.Content.ToLower().Contains(_client.CurrentUser.Mention.Replace("!", "")) && !msg.Content.ToLower().StartsWith("!") && !msg.Author.IsBot)
             {
                 Console.WriteLine("Mention detected: " + msg);
                 #region Responses
@@ -89,7 +94,7 @@ namespace RyeChan_MacOS
                                           "Got a bug to report? DM GlexAomes.",
                                           "I can't get into a deep conversation with you, sorry :(",
                                           "How's life?",
-                                          "Hey", 
+                                          "Hey",
                                           "Hiya",
                                           "Feeling lonely?",
                                           "You do know that I'm not a real person... Right?",
@@ -230,6 +235,21 @@ namespace RyeChan_MacOS
             var guildName = _client.GetGuild(id);
             await channel.SendMessageAsync("Brace yourselves, ban hammer was just slammed upon " + person + "." + Environment.NewLine + "There are now " + g.MemberCount + " people in the " + guildName + "!");
             return;
+        }
+        #endregion
+        #region Channel Updated
+        async Task channelUpdated(SocketChannel a, SocketChannel b)
+        {
+            var u = a as SocketTextChannel;
+            var v = b as SocketTextChannel;
+            String before = u.Topic;
+            String after = v.Topic;
+            if (u.Topic != v.Topic && u.Topic.Length == 0) before = "No Topic";
+            if (u.Topic != v.Topic && v.Topic.Length == 0) after = "No Topic";
+            if (u.Topic != v.Topic)
+            await v.SendMessageAsync("Channel topic changed from ```\n" + before + "\n```to\n```\n" + after + "\n```");
+            if (u.Name != v.Name)
+            await v.SendMessageAsync("Channel name changed from `" + u.Name + "` to `" + v.Name + "`");
         }
         #endregion
     }

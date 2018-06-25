@@ -27,12 +27,15 @@ namespace RyeChanMacOS.UtilityCommands
             {
                 if (u.Username == s || u.Nickname == s || u.Mention == s)
                 {
-                    string name = u.Nickname;
-                    if (u.Nickname == "" || u.Nickname == null)
+                    string name = HelperFunctions.ProperName.getName(u);
+                    String link = HelperFunctions.Avatar.getAvatar(u);
+                    var result = new EmbedBuilder()
                     {
-                        name = u.Username;
-                    }
-                    await Context.Channel.SendMessageAsync(name + "'s avatar: " + Environment.NewLine + HelperFunctions.Avatar.getAvatar(u));
+                        Color = new Color(3, 129, 255),
+                        Description = name + "'s avatar: [[Link]](" + link + ")",
+                        ImageUrl = link
+                    };
+                    await Context.Channel.SendMessageAsync("", false, result.Build());
                     //return; //comment out if returning all cases
                 }
             }
@@ -40,7 +43,15 @@ namespace RyeChanMacOS.UtilityCommands
         [Command("avatar")]
         public async Task getAvatarSelf()
         {
-            await Context.Channel.SendMessageAsync(Context.User.Username + "'s avatar: " + Environment.NewLine + HelperFunctions.Avatar.getAvatar(Context.User));
+            string name = HelperFunctions.ProperName.getName(Context.User);
+            String link = HelperFunctions.Avatar.getAvatar(Context.User);
+            var result = new EmbedBuilder()
+            {
+                Color = new Color(3, 129, 255),
+                Description = name + "'s avatar: [[Link]](" + link + ")",
+                ImageUrl = link
+            };
+            await Context.Channel.SendMessageAsync("", false, result.Build());
         }
         #endregion
     }

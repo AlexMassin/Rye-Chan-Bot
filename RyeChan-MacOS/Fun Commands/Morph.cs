@@ -19,23 +19,33 @@ namespace RyeChanMacOS.UtilityCommands
     {
         #region Morph
         [Command("morph")]
-        public async Task morph(String a, String b)
+        public async Task morph([Remainder] String s)
         {
             String op = "";
-            a = a.Trim();
-            b = b.Trim();
+            String[] words = s.Split(" ");
+            String a = words[0].Trim();
+            String b = words[1].Trim();
+            int length = 0; //determine if char length exceeds 2k
 
-            a = a.Replace("@", "\\@");
-            b = b.Replace("@", "\\@");
+            for (int i = 0; i < a.Length - 1; i++) length += a.Length - i;
+            for (int i = 0; i < b.Length - 1; i++) length += b.Length - i;
+
+            if (length >= 1999) {
+                await Context.Channel.SendMessageAsync("Message is too long, shorten your morph words!");
+                return;
+            }
+
+            a = Regex.Replace(a, "[@\"]", "");
+            b = Regex.Replace(b, "[@\"]", "");
+            a = a[0].ToString().ToUpper() + a.Substring(1);
+            b = b[0].ToString().ToUpper() + b.Substring(1);
 
             int start = 2;
-
-            a = CultureInfo.InvariantCulture.TextInfo.ToTitleCase(a);
-            b = CultureInfo.InvariantCulture.TextInfo.ToTitleCase(b);
 
             if (a[0] != b[0])
             {
                 start = 1;
+                length++;
             }
 
             op += a.Substring(0, a.Length);

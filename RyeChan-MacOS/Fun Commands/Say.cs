@@ -29,7 +29,7 @@ namespace RyeChanMacOS.FunCommands
             SocketUser sUser = Context.User;
             var user = sUser as SocketGuildUser;
 
-            if (s.Contains("@everyone") && !user.GuildPermissions.MentionEveryone)
+            while (s.Contains("@everyone") && !user.GuildPermissions.MentionEveryone)
             {
                 s = s.Replace("@everyone", "everyone");
             }

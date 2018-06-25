@@ -16,6 +16,7 @@ namespace RyeChanMacOS.HelperFunctions
             String created = HelperFunctions.DateFormat.getFormatted(u.CreatedAt);
             String avatarURL = HelperFunctions.Avatar.getAvatar(u);
             String status = HelperFunctions.UserStatus.getStatus(u);
+            String id = u.Id.ToString();
             String discriminator = u.Discriminator;
             String joined = HelperFunctions.DateFormat.getFormatted((DateTimeOffset)u.JoinedAt);
             var builder = new EmbedBuilder()
@@ -57,6 +58,13 @@ namespace RyeChanMacOS.HelperFunctions
             {
                 x.Name = "Discriminator: ";
                 x.Value = "#" + discriminator;
+                x.IsInline = false;
+            });
+
+            builder.AddField(x =>
+            {
+                x.Name = "ID: ";
+                x.Value = id;
                 x.IsInline = false;
             });
 
