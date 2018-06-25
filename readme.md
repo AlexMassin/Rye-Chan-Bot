@@ -21,7 +21,7 @@
 *  Added quoting!
 *  Quote a message by copying the message ID and using `!quote {123456789}` **in the same channel**. 
 *  Added urban dictionary definitions from urbandictionary.com!
-*  Get the best or most upvoted definition with `!urban {test}`
+*  Get the best or most upvoted definition with `!urban {yolo}`
 
 ## Known Issues
 *  `!help` is not updated, will be fixed in a future patch. Refer to this patch note for help.
@@ -100,6 +100,12 @@ Posts a randomly generated quote. Powered by [inpirobot.me](http://inspirobot.me
 
 *  `!dadjoke`
 Posts a random dad joke. Powered by [icanhazdadjoke.com](https://icanhazdadjoke.com/)
+
+*  `!xkcd`
+Posts a random xkcd comic. Powered by [xkcd.com](https://xkcd.com/)
+
+*  `!urban {yolo}`
+Returns the top or most voted definition from urban dictionary. Powered by [urbandictionary.com](https://www.urbandictionary.com/)
 
 ### Utility Commands
 ---
@@ -182,3 +188,12 @@ Returns user data including:
 
 *  `!tex {(x+2)^2(x+3)=x^3+7x^2+16x+12}`
 Returns LaTeX formatted image. Powered by [latex.codecogs.com](https://latex.codecogs.com/)
+
+*  `!translate {en} {jp} {Hi, nice to meet you!}`
+Translates from source language to destination language, your message.
+
+*  `!translate langs`
+Returns the list of language encodes for `!translate`
+
+*  `!quote {123456789}`
+Quotes a message in the same channel using its ID. You can copy message ID by right clicking and selecting "Copy ID." This requires Developer Mode to be enabled in Discord settings.
